@@ -1,14 +1,14 @@
 create event table time_selection (
   minTs integer,
-  maxTs integer,
+  maxTs integer
 );
 
 create view current_time_selection AS
-  select latest time_selection;
+  select * from latest time_selection;
 
 create view current_filtered_vals AS
   select * 
-  from log
+  from log 
   join current_time_selection s
     on (log.time < s.maxTs
     and log.time > s.minTs) or
@@ -16,15 +16,17 @@ create view current_filtered_vals AS
   
 -- TODO: this is a good place ot use templates
 create output pack_ther as
-  select 
-    time as time,
+  select
+    time,
+    ts,
     min as val,
     'minVal' as kind
   from current_filtered_vals
   where device = 'pack-ther'
   union
-    select 
-      time as time,
+    select
+      time, 
+      ts,
       max as val,
       'maxVal' as kind
     from current_filtered_vals
@@ -32,6 +34,7 @@ create output pack_ther as
   union
     select 
       time as time,
+      ts,
       value as val,
       'avgVal' as kind
     from current_filtered_vals
@@ -41,6 +44,7 @@ create output pack_ther as
 create output pack_cell as
   select 
     time as time,
+    ts,
     min as val,
     'minVal' as kind
   from current_filtered_vals
@@ -48,6 +52,7 @@ create output pack_cell as
   union
     select 
       time as time,
+      ts,
       max as val,
       'maxVal' as kind
     from current_filtered_vals
@@ -55,6 +60,7 @@ create output pack_cell as
   union
     select 
       time as time,
+      ts,
       value as val,
       'avgVal' as kind
     from current_filtered_vals

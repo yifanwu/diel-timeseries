@@ -14,8 +14,9 @@ const dbConfigs: DbSetupConfig[] = [{
 export const diel = new DielRuntime({
   isStrict: true,
   showLog: true,
+  caching: false,
   setupCb: () => loadPage(),
-  dielFiles: [],
+  dielFiles: ["./assets/diel/views.diel"],
   mainDbPath: null,
   dbConfigs,
 });

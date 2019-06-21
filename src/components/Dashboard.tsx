@@ -11,6 +11,7 @@ export default class Dashboard extends DielComponent<DielComponentProps> {
   constructor(props: DielComponentProps) {
     super(props);
     this.state = {};
+    this.BindDielOutputs(Object.keys(ComponentRelations));
   }
   render() {
     const {diel} = this.props;
