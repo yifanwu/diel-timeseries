@@ -1,0 +1,44 @@
+{
+  "name": "diel-timeseries",
+  "version": "1.0.0",
+  "description": "demo of tool for timeseries data analysis built with diel",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --verbose --mode development --hot",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yifanwu/diel-timeseries.git"
+  },
+  "keywords": [
+    "visualization",
+    "SQL",
+    "timeseries"
+  ],
+  "author": "yifan wu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yifanwu/diel-timeseries/issues"
+  },
+  "homepage": "https://github.com/yifanwu/diel-timeseries#readme",
+  "dependencies": {
+    "@types/react": "^16.8.21",
+    "@types/react-dom": "^16.8.4",
+    "diel": "file:../diel3/diel-1.0.8.tgz",
+    "diel-ui": "file:../diel-ui/diel-ui-1.0.2.tgz",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "sql.js": "^0.5.0"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "source-map-loader": "^0.2.4",
+    "tslint": "^5.17.0",
+    "tslint-loader": "^3.5.4",
+    "typescript": "^3.5.2",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.4",
+    "webpack-dev-server": "^3.7.2"
+  }
+}

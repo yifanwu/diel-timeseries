@@ -1,0 +1,9 @@
+{
+  "extends": "..",
+  "compilerOptions": {
+    "outDir": "../build",
+    "rootDir": ".."
+  },
+  "files": ["index.tsx"],
+  "include": ["**/*", "../package.json"]
+}
