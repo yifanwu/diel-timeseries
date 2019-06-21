@@ -1,10 +1,11 @@
 import * as React from "react";
 import { DielComponent, ChartType, DielComponentProps, ChartSpec, ChannelName, UserSelection  } from "diel-ui";
-import { RangeUnitSelection } from "diel-ui/build/types";
+import { RangeUnitSelection, AnnotationStyle } from "diel-ui/build/types";
 
 enum ComponentRelations {
   pack_ther = "pack_ther",
-  pack_cell = "pack_cell"
+  pack_cell = "pack_cell",
+  current_time_selection_pretty = "current_time_selection_pretty"
 }
 
 export default class Dashboard extends DielComponent<DielComponentProps> {
@@ -20,7 +21,12 @@ export default class Dashboard extends DielComponent<DielComponentProps> {
       channelByColumn: new Map([
         [ChannelName.x, "ts"],
         [ChannelName.y, "val"],
-      ])
+        [ChannelName.color, "kind"]
+      ]),
+      annotation: {
+        columns: ["time"],
+        style: AnnotationStyle.Popup,
+      }
     }
     const selectionHandler = (sel: UserSelection) => {
       // we know that this is a RangeUnitSelection
@@ -34,8 +40,15 @@ export default class Dashboard extends DielComponent<DielComponentProps> {
     };
     const therDiv = this.GenerateChart(spec, ComponentRelations.pack_ther, handler);
     const cellDiv = this.GenerateChart(spec, ComponentRelations.pack_cell, handler);
+    const currentSelection = this.state[ComponentRelations.current_time_selection_pretty];
+    const currentSelectionDiv = (currentSelection && currentSelection.length > 0)
+      ? <h2>You have selected time range from {currentSelection[0]["minTs"]} to {currentSelection[0]["maxTs"]}</h2>
+      : null;
+      ;
     return <>
+      {currentSelectionDiv}
       {therDiv}
+      <br></br>
       {cellDiv}
     </>;
   }
