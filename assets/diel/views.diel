@@ -4,7 +4,12 @@ create event table time_selection (
 );
 
 create view current_time_selection AS
-  select * from latest time_selection;
+  select * from time_selection
+  where timestep = (select max(timestep) from time_selection);
+
+create output all_device as
+  select distinct device from log;
+
 
 create output current_time_selection_pretty AS
   select
@@ -16,10 +21,20 @@ create view current_filtered_vals AS
   select * 
   from log 
   join current_time_selection s
-    on (log.time < s.maxTs
-    and log.time > s.minTs) or
+    on (log.ts < s.maxTs
+    and log.ts > s.minTs) or
       (s.maxTs is null);
-  
+
+-- create output messages AS
+--   select message
+--   from current_filtered_vals
+--   where
+--     -- not sure what the real messages are like
+--     -- message NOT NULL
+--     TRIM(message, ' ') != ''
+--   limit 20
+-- ;
+
 -- TODO: this is a good place ot use templates
 create output pack_ther as
   select
@@ -45,6 +60,32 @@ create output pack_ther as
       'avgVal' as kind
     from current_filtered_vals
     where device = 'pack-ther'
+;
+
+create output gps AS
+  select
+    time,
+    ts,
+    min as val,
+    'minVal' as kind
+  from current_filtered_vals
+  where device = 'gps'
+  union
+    select
+      time, 
+      ts,
+      max as val,
+      'maxVal' as kind
+    from current_filtered_vals
+    where device = 'gps'
+  union
+    select 
+      time as time,
+      ts,
+      value as val,
+      'avgVal' as kind
+    from current_filtered_vals
+    where device = 'gps'
 ;
 
 create output pack_cell as
@@ -73,5 +114,29 @@ create output pack_cell as
     where device = 'pack-cell'
 ;
 
--- // "select time, value from log where device = 'pack-break-regen'",
--- // "select time, value from log where device = 'speed-1'",
+create output pack_break_regen AS
+  select
+    time,
+    ts,
+    value as val
+  from current_filtered_vals
+  where device = 'pack-break-regen';
+
+create output speed AS
+  select
+    time,
+    ts,
+    value as val,
+    'speed-1' as kind
+  from current_filtered_vals
+  where device = 'speed-1'
+  UNION
+  select
+    time,
+    ts,
+    value as val,
+    'speed-2' as kind
+  from current_filtered_vals
+  where device = 'speed-2'
+  ;
+
