@@ -66,6 +66,7 @@ export default class Dashboard extends DielComponent<DielComponentProps> {
     //   : null
     //   ;
     const currentSelection = this.state[ComponentRelations.current_time_selection_pretty];
+    // const currentSelection = this.state[ComponentRelations.o1];
     const currentSelectionDiv = (currentSelection && currentSelection.length > 0)
       ? <h2>You have selected time range from {currentSelection[0]["minTs"]} to {currentSelection[0]["maxTs"]}</h2>
       : null;
@@ -82,8 +83,8 @@ export default class Dashboard extends DielComponent<DielComponentProps> {
       {speedDiv}
       <h3>break</h3>
       {breakDiv}
-      {/* <h3>Mesages</h3>
-      <p>{messagesDiv}</p> */}
+      {/* <h3>Mesages</h3> */}
+      {/* <p>{messagesDiv}</p> */}
     </>;
   }
 }

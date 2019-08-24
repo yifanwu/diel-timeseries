@@ -5,9 +5,9 @@ import { loadPage } from "./index";
 const jsFile = "./node_modules/sql.js/js/worker.sql.js";
 
 const dbConfigs: DbSetupConfig[] = [{
-  dbType: DbType.Worker,
-  jsFile,
-  dataFile: path.resolve(__dirname, "../../assets/data/sensors_10000.sqlite")
+  dbType: DbType.Socket,
+  connection: "ws://localhost:8999",
+  message: {dbName: "sensors"}
 },
 ];
 
