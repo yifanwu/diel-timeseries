@@ -20,11 +20,7 @@
     "experimentalDecorators": true,
     "composite": true
   },
- "include":[],
-
- "references": [
-    {
-      "path": "./src"
-    }
+ "include":[
+    "src/**/*",
   ]
 }
