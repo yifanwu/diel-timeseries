@@ -7,7 +7,8 @@ const jsFile = "./node_modules/sql.js/js/worker.sql.js";
 const dbConfigs: DbSetupConfig[] = [{
   dbType: DbType.Socket,
   connection: "ws://localhost:8999",
-  message: {dbName: "sensors"}
+  dbDriver: DbDriver.Postgres,
+  message: {dbName: "davidkim"}
 },
 ];
 
